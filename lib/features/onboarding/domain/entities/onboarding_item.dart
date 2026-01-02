@@ -1,11 +1,13 @@
+import 'package:flutter/material.dart';
+
 class OnboardingItem {
   final String title;
   final String subtitle;
-  final String? imagePath; // Now optional
+  final IconData icon; // Material icon
 
-  OnboardingItem({
+  const OnboardingItem({
     required this.title,
     required this.subtitle,
-    this.imagePath, // No longer required
+    required this.icon,
   });
 }
