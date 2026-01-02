@@ -1,9 +1,9 @@
 import 'package:hive/hive.dart';
-import '../../domain/entities/auth_entity.dart';
+import '../../../../core/constants/hive_table_constant.dart';
 
-part 'auth_hive_model.g.dart'; // Run flutter pub run build_runner build after
+part 'auth_hive_model.g.dart';
 
-@HiveType(typeId: 1) // Match your hive_table_constant if needed
+@HiveType(typeId: HiveTableConstant.authTypeId)
 class AuthHiveModel extends HiveObject {
   @HiveField(0)
   String id;
@@ -15,25 +15,16 @@ class AuthHiveModel extends HiveObject {
   String email;
 
   @HiveField(3)
-  String? token;
+  String passwordHash;
 
   AuthHiveModel({
     required this.id,
     required this.username,
     required this.email,
-    this.token,
+    required this.passwordHash,
   });
 
-  factory AuthHiveModel.fromEntity(AuthEntity entity) {
-    return AuthHiveModel(
-      id: entity.id,
-      username: entity.username,
-      email: entity.email,
-      token: entity.token,
-    );
-  }
-
-  AuthEntity toEntity() {
-    return AuthEntity(id: id, username: username, email: email, token: token);
-  }
+  // Convert to entity (for domain layer)
+  // You'll need this later if you implement full clean architecture
+  // But for now, we use it in ViewModel
 }
