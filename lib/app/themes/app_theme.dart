@@ -61,7 +61,7 @@ class AppTheme {
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 18),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         elevation: 4,
-        shadowColor: AppColors.orange.withOpacity(0.4),
+        shadowColor: AppColors.orange.withValues(alpha: 0.5),
       ),
     ),
 
@@ -147,7 +147,7 @@ class AppTheme {
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 18),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         elevation: 4,
-        shadowColor: AppColors.orange.withOpacity(0.6),
+        shadowColor: AppColors.orange.withValues(alpha: 0.5),
       ),
     ),
 
