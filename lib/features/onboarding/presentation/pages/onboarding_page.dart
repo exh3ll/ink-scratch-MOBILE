@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ink_scratch/core/services/hive/hive_service.dart';
 import 'package:ink_scratch/features/onboarding/domain/entities/onboarding_item.dart';
-import 'package:ink_scratch/features/auth/presentation/pages/login_page.dart';
 import 'package:ink_scratch/features/onboarding/presentation/widgets/page_indicator.dart';
+import 'package:ink_scratch/features/auth/presentation/pages/login_page.dart';
 
 final onboardingPageProvider = StateProvider<int>((ref) => 0);
 
@@ -21,14 +21,17 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
     OnboardingItem(
       title: "Discover Amazing Mangas",
       subtitle: "Browse thousands of manga and comics from various sources",
+      icon: Icons.search_rounded,
     ),
     OnboardingItem(
       title: "Read Anywhere, Anytime",
       subtitle: "Offline reading, dark mode, and customizable viewer",
+      icon: Icons.menu_book_rounded, // Better icon for reading
     ),
     OnboardingItem(
       title: "Track Your Progress",
       subtitle: "Bookmark, history, and continue where you left off",
+      icon: Icons.bookmark_rounded,
     ),
   ];
 
@@ -80,19 +83,13 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32.0),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const SizedBox(height: 60),
+                      // Large beautiful icon
+                      Icon(item.icon, size: 180, color: colorScheme.primary),
 
-                      // Ink Scratch Logo
-                      Image.asset(
-                        "assets/images/app_logo.png", // Correct path!
-                        height: 240,
-                        fit: BoxFit.contain,
-                      ),
+                      const SizedBox(height: 80),
 
-                      const SizedBox(height: 60),
-
-                      // Title
                       Text(
                         item.title,
                         style: Theme.of(context).textTheme.headlineMedium
@@ -105,7 +102,6 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
 
                       const SizedBox(height: 24),
 
-                      // Subtitle
                       Text(
                         item.subtitle,
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -113,15 +109,13 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                         ),
                         textAlign: TextAlign.center,
                       ),
-
-                      const Spacer(),
                     ],
                   ),
                 );
               },
             ),
 
-            // Bottom Controls
+            // Bottom controls
             Positioned(
               bottom: 80,
               left: 0,
@@ -140,12 +134,10 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                       children: [
                         if (currentPage != 0)
                           TextButton(
-                            onPressed: () {
-                              _pageController.previousPage(
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.ease,
-                              );
-                            },
+                            onPressed: () => _pageController.previousPage(
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.ease,
+                            ),
                             child: Text(
                               "Back",
                               style: TextStyle(
