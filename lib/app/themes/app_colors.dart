@@ -32,4 +32,3 @@ class AppColors {
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
   );
-}
