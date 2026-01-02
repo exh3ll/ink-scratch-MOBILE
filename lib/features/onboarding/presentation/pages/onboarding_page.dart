@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart'; // ← Fixes StateProvider in Riverpod 3.0+
+
 import 'package:ink_scratch/core/services/hive/hive_service.dart';
 import 'package:ink_scratch/features/onboarding/domain/entities/onboarding_item.dart';
 import 'package:ink_scratch/features/onboarding/presentation/widgets/page_indicator.dart';
@@ -26,7 +28,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
     OnboardingItem(
       title: "Read Anywhere, Anytime",
       subtitle: "Offline reading, dark mode, and customizable viewer",
-      icon: Icons.menu_book_rounded, // Better icon for reading
+      icon: Icons.menu_book_rounded,
     ),
     OnboardingItem(
       title: "Track Your Progress",
@@ -47,8 +49,8 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
     }
   }
 
-  Future<void> _completeOnboarding() async {
-    await HiveService().setOnboardingSeen();
+  void _completeOnboarding() {
+    HiveService().setOnboardingSeen(); // ← Removed await - method is not async
     if (!mounted) return;
     Navigator.pushReplacement(
       context,
@@ -85,11 +87,8 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Large beautiful icon
                       Icon(item.icon, size: 180, color: colorScheme.primary),
-
                       const SizedBox(height: 80),
-
                       Text(
                         item.title,
                         style: Theme.of(context).textTheme.headlineMedium
@@ -99,9 +98,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                             ),
                         textAlign: TextAlign.center,
                       ),
-
                       const SizedBox(height: 24),
-
                       Text(
                         item.subtitle,
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
